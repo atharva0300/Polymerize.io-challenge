@@ -24,6 +24,8 @@
   color: white;
 }
 
+
+
 .App-link {
   color: #61dafb;
 }
@@ -35,4 +37,30 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.outer-circle{
+  height : 340px;
+  width : 340px;
+}
+
+.input-number{
+  width : 500px;
+  height : 80px;
+}
+
+.input-button{
+  height : 80px;
+  width : 200px;
+  margin-left: 32px;
+}
+
+.header-para{
+  line-height: 24px;
+  width : 1100px;
+  align-self: center;
+}
+
+.inner-dashboard{
+  margin-top : 120px;
 }
