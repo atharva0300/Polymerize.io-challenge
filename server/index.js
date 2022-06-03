@@ -4,7 +4,10 @@ const app = express();
 const PORT = 5000;
 
 // importing files
-const {calculate, preComputeData} = require('./dataset');
+const {calculate, preComputeData, useDataSet} = require('./dataset');
+const dataset1 = require('./dataset/Dataset-1')
+const dataset2 = require('./dataset/Dataset-2')
+
 
 app.use(cors());
 // parsing the request into the body
@@ -37,12 +40,15 @@ app.post('/upload', function (req, res) {
 app.post('/reload' , (req , res) => {
     console.log('inside reload endpoint')
     const dataset = req.body.dataset;
+    let Result = []
     console.log(dataset)
     if(dataset==='Dataset-1'){
-        
+        Result = useDataSet(dataset1)
+    }else if(dataset==='Dataset-2'){
+        Result = useDataSet(dataset2)
     }
 
-    return res.json({"message" : "success"})
+    return res.json({"result" : Result})
 })
 
 

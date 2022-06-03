@@ -1,6 +1,6 @@
 // imports
 
-
+let dataset = []
 
 function sort() {
     // use custom compare function that sorts numbers ascending
@@ -104,7 +104,13 @@ const calculate =(number) => {
 }
 
 
+function useDataSet(selectedDataSet){
+    dataset = selectedDataSet
+    return preComputeData()
+}
+
 module.exports = {
     preComputeData,
-    calculate
+    calculate,
+    useDataSet
 }
