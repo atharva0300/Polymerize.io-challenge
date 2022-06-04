@@ -7,6 +7,7 @@ function Input({onSubmit, onReload}) {
   const [dataset , setUpdateDataSet] = useState('Dataset-1234.json')
   const [displayWindow , toggleDisplayWindow] = useState(false)
   const [displayInputWindow , toggleInputDisplayWindow] = useState(false)
+  const [displayNumberError , toggleNumberError] = useState(false)
 
 
   // functions
@@ -20,11 +21,15 @@ function Input({onSubmit, onReload}) {
   const onSubmitData = (e) => {
     e.preventDefault();
     
-    if(document.myForm.myInput.value===''){
-      console.log('no input')
+    if(isNaN(data)){
+      toggleNumberError(true)
+      document.myForm.myInput.value = ''
+      toggleDisplayWindow(false)
+      toggleInputDisplayWindow(false)
     }else{
       console.log('sending dataset : ' , dataset)
       onSubmit(dataset , data)
+      toggleNumberError(false)
       toggleInputDisplayWindow(true)
       toggleDisplayWindow(false)
       document.myForm.myInput.value = '';
@@ -36,6 +41,7 @@ function Input({onSubmit, onReload}) {
     setUpdateDataSet('Dataset-1234.json')
     toggleDisplayWindow(true)
     toggleInputDisplayWindow(false)
+    toggleNumberError(false)
     onReload('Dataset-1234.json')
   }
 
@@ -44,7 +50,15 @@ function Input({onSubmit, onReload}) {
     setUpdateDataSet('Dataset-4321.json')
     toggleDisplayWindow(true)
     toggleInputDisplayWindow(false)
+    toggleNumberError(false)
     onReload('Dataset-4321.json')
+  }
+
+  const disableAllToggles = (e) => {
+    e.preventDefault();
+    toggleDisplayWindow(false)
+    toggleInputDisplayWindow(false)
+    toggleNumberError(false)
   }
 
   return (
@@ -53,6 +67,7 @@ function Input({onSubmit, onReload}) {
         <form onSubmit={(e) => onSubmitData(e)} name = "myForm">
         <motion.input
               name='myInput'
+              onFocus={(e) => disableAllToggles(e)}
               data-testid = "searchBar"
               className='input-number text-center text-3xl self-center h-16 rounded-l-xl text-orange-400 placeholder:text-orange-400'
               placeholder='Enter a number'
@@ -162,6 +177,23 @@ function Input({onSubmit, onReload}) {
         >
           <p className='self-center text-2xl font-sans text-white'>{data} added in {dataset}</p>
           </motion.div>}
+
+
+          {displayNumberError && <motion.div 
+            className='h-24 w-96 bg-red-500 self-start mr-4 rounded-lg flex flex-col justify-center absolute ml-4'
+          animate = {{
+            y : 60
+          }}
+          initial = {{
+            y : 100
+          }}
+          transition = {{
+            type : "spring"
+          }}
+          onClick = {() => {toggleNumberError(false)}} 
+          >
+            <p className='self-center text-2xl font-sans text-white'>Entered value not a number !</p>
+            </motion.div>}
     </div>
   )
 }
