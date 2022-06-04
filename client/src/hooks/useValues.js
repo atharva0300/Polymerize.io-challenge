@@ -19,8 +19,9 @@ export function useValues() {
                     preCompute : 'true',
                     dataset : 'Dataset-1234.json'                
                 }
-
-                const {data} = await axios.post(`${baseURL}/upload`, payLoad)
+                const endPoint = baseURL + "/upload";
+                console.log(endPoint);
+                const {data} = await axios.post(endPoint, payLoad)
                 console.log(data.result)
                 const resultArray = data.result;
                 setValues([resultArray[0] , resultArray[1] , resultArray[2] , resultArray[3]])
