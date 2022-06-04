@@ -1,7 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000
+const LOCAL_ADDRESS = process.env.LOCAL_ADDRESS || "0.0.0.0"
 const path = require('path');
 
 // importing files
@@ -85,7 +86,7 @@ app.post('/reload' , (req , res) => {
 
 
 
-app.listen(PORT, function(err){
+app.listen(PORT, LOCAL_ADDRESS , function(err){
 	if (err) console.log(err);
 	console.log("Server listening on PORT", PORT);
 });
