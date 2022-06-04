@@ -5,8 +5,8 @@ import {motion} from 'framer-motion';
 
 function Header() {
   return (
-    <header className = "w-fit h-64 bg-white flex flex-col justify-center self-center">
-      <img src = {logo} alt = "logo" className='self-center'/>
+    <header className = "w-fit h-64 bg-white flex flex-col justify-center self-center" data-testid = "loadHeading">
+      <img src = {logo} alt = "logo" className='self-center' data-testid = "loadImage" />
       <div className='self-center flex text-2xl flex-col'>
         <motion.h2 
           className='self-center font-sans font-semibold text-gray-600'
@@ -32,7 +32,7 @@ function Header() {
             transition = {{
               scaleX : 5
             }}
-
+            data-testid = "loadText"
             >SPA app with simple dashboard that displays four tiles, each displaying a single statistic (Mean, Median, Std Deviation, Mode) for a 
             dataset that is retrieved via a REST API call. The user should be able to request new data to be loaded and to see the statistics in the 
             tiles update to reflect the new dataset.

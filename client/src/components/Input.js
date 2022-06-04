@@ -53,6 +53,7 @@ function Input({onSubmit, onReload}) {
         <form onSubmit={(e) => onSubmitData(e)} name = "myForm">
         <motion.input
               name='myInput'
+              data-testid = "searchBar"
               className='input-number text-center text-3xl self-center h-16 rounded-l-xl text-orange-400 placeholder:text-orange-400'
               placeholder='Enter a number'
               type="text"
@@ -84,6 +85,7 @@ function Input({onSubmit, onReload}) {
               type : "tween",
               stiffness : 60
             }}
+            data-testid = "submitValue"
         >Submit</motion.button>
         </form>
           
@@ -104,6 +106,7 @@ function Input({onSubmit, onReload}) {
               scale : 1.1
             }}
             onClick = {(e) => onReloadData1(e)}
+            data-testid = "reloadValue1"
         >Reload JSON-1234 Data</motion.button>
 
         <motion.button 
@@ -121,6 +124,7 @@ function Input({onSubmit, onReload}) {
               scale : 1.1
             }}
             onClick = {(e) => onReloadData2(e)}
+            data-testid = "reloadValue2"
         >Reload JSON-4321 Data</motion.button>
 
       </div>
@@ -137,6 +141,7 @@ function Input({onSubmit, onReload}) {
           type : "spring"
         }}
         onClick = {() => {toggleDisplayWindow(false)}}     
+        data-testid = "div1"
       >
         <p className='self-center text-2xl font-sans text-white'>Reloaded {dataset} !</p>
         </motion.div>}
@@ -153,6 +158,7 @@ function Input({onSubmit, onReload}) {
             type : "spring"
           }}
           onClick = {() => {toggleInputDisplayWindow(false)}} 
+          data-testid = "div2"
         >
           <p className='self-center text-2xl font-sans text-white'>{data} added in {dataset}</p>
           </motion.div>}

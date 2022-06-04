@@ -29,7 +29,7 @@ function App() {
     }, [hookCustom.update])
 
   return (
-    <div className="App flex flex-col justify-center">
+    <div className="App flex flex-col justify-center" data-testid = "loadDocument">
       <Header />
       <Dashboard mean = {mean} median = {median} stdDeviation = {stdDeviation} mode = {mode} />
       <Input onSubmit = {hookCustom.onSubmitClick} onReload = {hookCustom.onReloadDataset} />

@@ -95,9 +95,6 @@ const calculate =() => {
  
     sort();
 
-    console.log('dispalying array : ')
-    console.log(dataset)
-
     mean = computeMean();
     median = computeMedian();
     stdDeviation = computeStdDeviation(mean);

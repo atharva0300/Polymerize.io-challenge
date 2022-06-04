@@ -25,18 +25,16 @@ app.post('/upload', function (req, res) {
         console.log('inside true toPreCompute')
         if(req.body.dataset==='Dataset-1234.json'){
             console.log('Dataset-1234.json')
-            console.log(dataset1.dataset)
 
             Result = useDataSet(dataset1.dataset)
 
         }else if(req.body.dataset==='Dataset-4321.json'){
             console.log('Dataset-4321.json')
-            console.log(dataset2.dataset)
 
             Result = useDataSet(dataset2.dataset)
 
         }
-        console.log(Result)
+
         return res.json({"result" : Result})
 
     }else{
@@ -52,7 +50,7 @@ app.post('/upload', function (req, res) {
             flag = true
         }   
 
-        console.log(Result)
+    
         const updatedDataSet = Result[0];
         if(flag===false){
             dataset1.dataset = updatedDataSet
