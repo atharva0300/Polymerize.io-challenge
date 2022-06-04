@@ -3,29 +3,25 @@ import {useState} from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 
-let firstRender = true;
-
-
 
 export function useValues() {
     console.log('inside custom hook')
     const [values , setValues] = useState([0,0,0,0])
     const [update ,setUpdate] = useState(false)
-    const [dataset , setDataSet] = useState('Dataset-1')
+
 
     useEffect(() => {
         async function fetchData(){
             try{
                 const payLoad = {
-                    preCompute : 'true'
+                    preCompute : 'true',
+                    dataset : 'Dataset-1234.json'                
                 }
-    
+
                 const {data} = await axios.post('http://localhost:5000/upload', payLoad)
                 console.log(data.result)
-                console.log(data)
                 const resultArray = data.result;
                 setValues([resultArray[0] , resultArray[1] , resultArray[2] , resultArray[3]])
-                firstRender = false
                 setUpdate(!update)
             }catch(err){
                 console.log('Axios error : ' , err)
@@ -37,15 +33,20 @@ export function useValues() {
     }, [] )
 
 
-    const onSubmitClick = async (number) => {
+    const onSubmitClick = async (dataset , number) => {
 
         const payLoad = {
             preCompute : 'false',
+            dataset : dataset,
             number : number
         }
 
         // post request
         try{
+
+            console.log('current dataset : ' , dataset)
+            console.log('number : ' , number)
+            
             const {data} = await axios.post('http://localhost:5000/upload' , payLoad)
 
             // extracting the data from the output object  
@@ -63,22 +64,24 @@ export function useValues() {
         
     }
 
-    async function reloadingFunction(dataset){
+    async function reloadingFunction(dataSet){
+
         try{
+            console.log('dataset to reload : ' , dataSet)
             const payLoad = {
-                dataset : `${dataset}`
+                dataset : `${dataSet}`
             }
     
             const {data} = await axios.post('http://localhost:5000/reload' ,payLoad )
             
-            console.log(data)
-            // extracting the data from the output object  
-            /*
+
+            // extracting the data from the output object   
             console.log(data.result)
             const resultArray= data.result;
     
             setValues([resultArray[0] , resultArray[1] , resultArray[2] , resultArray[3]])
-            */
+
+            
         }catch(err){
             console.log('Axios error : ' , err)
         }
@@ -86,9 +89,10 @@ export function useValues() {
         setUpdate(!update)
     }
 
-    const onReloadDataset = (dataSet) => {
-        setDataSet(dataSet)
-        reloadingFunction(dataset)
+    const onReloadDataset = async (dataSet) => {
+        console.log('dataset to reload : ' , dataSet)
+
+        reloadingFunction(dataSet)
     }
     
     return {values , onSubmitClick, update , onReloadDataset}

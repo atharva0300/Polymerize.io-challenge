@@ -1,12 +1,13 @@
 // imports
 
-let dataset = []
+let dataset = new Array();
 
 function sort() {
     // use custom compare function that sorts numbers ascending
     dataset.sort(function(a, b) {
         return a - b;
     })
+
 }
 
 function computeMean(){
@@ -27,6 +28,7 @@ function computeMedian(){
     
     // Calculating Median
     let median=0;
+    sort(dataset);
     if(dataset.length%2==0){
         const first = dataset[dataset.length/2]
         const second = dataset[(dataset.length/2) + 1 ]
@@ -34,6 +36,7 @@ function computeMedian(){
     }else{
         median = dataset[Math.ceil(dataset.length/2)]
     }
+    console.log('median : ' ,median)
     return median.toFixed(4)
 }
 
@@ -45,6 +48,7 @@ function computeStdDeviation(mean){
         sum2 += ((dataset[i]-mean)*(dataset[i]-mean))
     }
     stdDeviation = Math.sqrt(sum2/dataset.length);
+    console.log('stdDeviation : ' , stdDeviation)
     return stdDeviation.toFixed(4)
 }
 
@@ -68,10 +72,13 @@ function computeMode(){
           count = temp[item];
         }
     }
+
+    console.log('mode : ' , mode)
     return mode.toFixed(4)
 }
 
-const preComputeData = () => {
+const preComputeData = (selectedDataSet) => {
+    dataset = [...selectedDataSet]
     console.log('inside preCOmputeData')
     sort();
 
@@ -83,34 +90,46 @@ const preComputeData = () => {
     return [mean , median , stdDeviation , mode];
 }
 
-const calculate =(number) => {
-
-    // Appending the number in the dataset
-    dataset.push(parseInt(number))
+const calculate =() => {
+    console.log('inside calculate')
+ 
     sort();
+
+    console.log('dispalying array : ')
+    console.log(dataset)
 
     mean = computeMean();
     median = computeMedian();
     stdDeviation = computeStdDeviation(mean);
     mode = computeMode();
 
-    console.log('displaying array : ')
-    for(let i=0;i<dataset.length;i++){
-        console.log(dataset[i])
-    }
 
-    return [mean , median , stdDeviation , mode];
+    return [dataset, mean , median , stdDeviation , mode];
     
 }
 
 
 function useDataSet(selectedDataSet){
-    dataset = selectedDataSet
-    return preComputeData()
+    const Result =  preComputeData(selectedDataSet)
+
+    return Result
 }
 
+function calculateUseDataSet(selectedDataSet , number){
+    console.log('inside calculateUseDataSet')
+    dataset = [...selectedDataSet ]
+    
+    // Appending the number in the dataset
+    number = parseInt(number)
+    dataset.push(number)
+
+    const Result =  calculate(dataset)
+
+    return Result
+}
+
+
 module.exports = {
-    preComputeData,
-    calculate,
-    useDataSet
+    useDataSet,
+    calculateUseDataSet
 }

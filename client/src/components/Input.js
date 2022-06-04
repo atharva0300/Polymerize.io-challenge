@@ -1,9 +1,12 @@
 import React from 'react'
-import {motion} from 'framer-motion';
+import {animate, motion} from 'framer-motion';
 import { useState } from 'react';
 
 function Input({onSubmit, onReload}) {
   const [data , setData] = useState('')
+  const [dataset , setUpdateDataSet] = useState('Dataset-1234.json')
+  const [displayWindow , toggleDisplayWindow] = useState(false)
+  const [displayInputWindow , toggleInputDisplayWindow] = useState(false)
 
 
   // functions
@@ -20,19 +23,28 @@ function Input({onSubmit, onReload}) {
     if(document.myForm.myInput.value===''){
       console.log('no input')
     }else{
-      onSubmit(data)
+      console.log('sending dataset : ' , dataset)
+      onSubmit(dataset , data)
+      toggleInputDisplayWindow(true)
+      toggleDisplayWindow(false)
       document.myForm.myInput.value = '';
     }
   }
 
   const onReloadData1 = (e) => {
     e.preventDefault();
-    onReload('Dataset-1')
+    setUpdateDataSet('Dataset-1234.json')
+    toggleDisplayWindow(true)
+    toggleInputDisplayWindow(false)
+    onReload('Dataset-1234.json')
   }
 
   const onReloadData2 = (e) => {
     e.preventDefault();
-    onReload('Dataset-2')
+    setUpdateDataSet('Dataset-4321.json')
+    toggleDisplayWindow(true)
+    toggleInputDisplayWindow(false)
+    onReload('Dataset-4321.json')
   }
 
   return (
@@ -112,6 +124,38 @@ function Input({onSubmit, onReload}) {
         >Reload JSON-4321 Data</motion.button>
 
       </div>
+
+      {displayWindow && <motion.div 
+        className='h-24 w-96 bg-sky-600 self-end mr-4 rounded-lg flex flex-col justify-center absolute'
+        animate = {{
+          y : 60
+        }}
+        initial = {{
+          y : 100
+        }}
+        transition = {{
+          type : "spring"
+        }}
+        onClick = {() => {toggleDisplayWindow(false)}}     
+      >
+        <p className='self-center text-2xl font-sans text-white'>Reloaded {dataset} !</p>
+        </motion.div>}
+
+        {displayInputWindow && <motion.div 
+          className='h-24 w-96 bg-lime-600 self-end mr-4 rounded-lg flex flex-col justify-center absolute'
+          animate = {{
+            y : 60
+          }}
+          initial = {{
+            y : 100
+          }}
+          transition = {{
+            type : "spring"
+          }}
+          onClick = {() => {toggleInputDisplayWindow(false)}} 
+        >
+          <p className='self-center text-2xl font-sans text-white'>{data} added in {dataset}</p>
+          </motion.div>}
     </div>
   )
 }

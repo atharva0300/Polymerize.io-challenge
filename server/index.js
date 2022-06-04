@@ -4,9 +4,9 @@ const app = express();
 const PORT = 5000;
 
 // importing files
-const {calculate, preComputeData, useDataSet} = require('./dataset');
-const dataset1 = require('./dataset/Dataset-1')
-const dataset2 = require('./dataset/Dataset-2')
+const {useDataSet, calculateUseDataSet} = require('./computation');
+const dataset1 = require('./datasets/Dataset-1234.json')
+const dataset2 = require('./datasets/Dataset-4321.json')
 
 
 app.use(cors());
@@ -15,24 +15,56 @@ app.use(express.urlencoded({extended : true }));
 app.use(express.json());
 
 
-
 app.post('/upload', function (req, res) {
+    console.log('inside upload endpoint')
 
     const toPreCompute = req.body.preCompute
+    let Result = []
+    let flag = false
     if(toPreCompute==='true'){
-        const Result = preComputeData()
+        console.log('inside true toPreCompute')
+        if(req.body.dataset==='Dataset-1234.json'){
+            console.log('Dataset-1234.json')
+            console.log(dataset1.dataset)
+
+            Result = useDataSet(dataset1.dataset)
+
+        }else if(req.body.dataset==='Dataset-4321.json'){
+            console.log('Dataset-4321.json')
+            console.log(dataset2.dataset)
+
+            Result = useDataSet(dataset2.dataset)
+
+        }
         console.log(Result)
         return res.json({"result" : Result})
+
     }else{
         const number = req.body.number 
         console.log(number)
-        
+        let Result = []
+        console.log(req.body.dataset)
+        if(req.body.dataset==='Dataset-1234.json'){
+            Result = calculateUseDataSet(dataset1.dataset , number)
+            flag = false
+        }else if(req.body.dataset === 'Dataset-4321.json'){
+            Result = calculateUseDataSet(dataset2.dataset , number)
+            flag = true
+        }   
 
-        const Result = calculate(number)
         console.log(Result)
+        const updatedDataSet = Result[0];
+        if(flag===false){
+            dataset1.dataset = updatedDataSet
+        }else{
+            dataset2.dataset = updatedDataSet
+        }
 
 
-        return res.json({"result" :  Result})
+        const finalResult = [Result[1] , Result[2] , Result[3] , Result[4]]
+        console.log('Result : ' , finalResult)
+        return res.json({"result" : finalResult})
+
     }
     
 });
@@ -42,13 +74,13 @@ app.post('/reload' , (req , res) => {
     const dataset = req.body.dataset;
     let Result = []
     console.log(dataset)
-    if(dataset==='Dataset-1'){
-        Result = useDataSet(dataset1)
-    }else if(dataset==='Dataset-2'){
-        Result = useDataSet(dataset2)
+    if(dataset==='Dataset-1234.json'){
+        Result = useDataSet(dataset1.dataset)
+    }else if(dataset==='Dataset-4321.json'){
+        Result = useDataSet(dataset2.dataset)
     }
 
-    return res.json({"result" : Result})
+    return res.json({"result" :  Result})
 })
 
 
