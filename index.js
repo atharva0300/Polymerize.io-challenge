@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const PORT = 5000;
+const path = require('path');
 
 // importing files
 const {useDataSet, calculateUseDataSet} = require('./computation');
@@ -13,6 +14,7 @@ app.use(cors());
 // parsing the request into the body
 app.use(express.urlencoded({extended : true }));
 app.use(express.json());
+app.use(express.static(path.join(__dirname + '/public')))
 
 
 app.post('/upload', function (req, res) {
