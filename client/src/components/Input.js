@@ -192,7 +192,7 @@ function Input({onSubmit, onReload}) {
           }}
           onClick = {() => {toggleNumberError(false)}} 
           >
-            <p className='self-center text-2xl font-sans text-white'>Entered value not a number !</p>
+            <p className='self-center text-2xl font-sans text-white'>Entered value not a number ! <br />Enter a number</p>
             </motion.div>}
     </div>
   )
