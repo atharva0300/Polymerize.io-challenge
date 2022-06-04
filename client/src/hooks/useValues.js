@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useEffect } from 'react';
 
 const PORT = process.env.PORT || 5000
-const baseURL = 'https://polymerize-io-challenge.herokuapp.com:' + PORT;
+const baseURL = 'https://polymerize-io-challenge.herokuapp.com';
 
 export function useValues() {
     console.log('inside custom hook')
