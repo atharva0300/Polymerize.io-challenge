@@ -3,7 +3,7 @@ import {useState} from 'react';
 import axios from 'axios';
 import { useEffect } from 'react';
 
-const PORT = process.env.PORT || 5000
+
 const baseURL = 'https://polymerize-io-challenge.herokuapp.com';
 
 export function useValues() {
