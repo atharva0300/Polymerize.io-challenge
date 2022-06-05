@@ -85,6 +85,10 @@ app.post('/reload' , (req , res) => {
     return res.json({"result" :  Result})
 })
 
+if(process.env.NODE_ENV == "production"){
+    app.use(express.static(path.join(__dirname + '/public')))
+}
+
 
 
 app.listen(PORT, LOCAL_ADDRESS , function(err){
