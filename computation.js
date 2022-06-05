@@ -10,6 +10,12 @@ function sort() {
 
 }
 
+function filtering(){
+    console.log('inside filtering')
+    dataset = dataset.filter(number => (!isNaN(number)))
+    console.log(dataset);
+}
+
 function computeMean(){
     // Calculating mean
     let sum=0;
@@ -79,6 +85,7 @@ function computeMode(){
 
 const preComputeData = (selectedDataSet) => {
     dataset = [...selectedDataSet]
+    filtering();
     console.log('inside preCOmputeData')
     sort();
 
@@ -115,6 +122,7 @@ function useDataSet(selectedDataSet){
 function calculateUseDataSet(selectedDataSet , number){
     console.log('inside calculateUseDataSet')
     dataset = [...selectedDataSet ]
+    filtering();
     
     // Appending the number in the dataset
     number = parseInt(number)

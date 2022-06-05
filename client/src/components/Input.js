@@ -8,6 +8,7 @@ function Input({onSubmit, onReload}) {
   const [displayWindow , toggleDisplayWindow] = useState(false)
   const [displayInputWindow , toggleInputDisplayWindow] = useState(false)
   const [displayNumberError , toggleNumberError] = useState(false)
+  const [valueChanged , toggleValueChanged] = useState(false)
 
 
   // functions
@@ -16,23 +17,32 @@ function Input({onSubmit, onReload}) {
     e.preventDefault();
     setData(e.target.value)
     console.log(e.target.value)
+    toggleValueChanged(true)
   }
 
   const onSubmitData = (e) => {
     e.preventDefault();
     
-    if(isNaN(data)){
+    if(isNaN(data) || data===''){
       toggleNumberError(true)
       document.myForm.myInput.value = ''
       toggleDisplayWindow(false)
       toggleInputDisplayWindow(false)
     }else{
-      console.log('sending dataset : ' , dataset)
-      onSubmit(dataset , data)
-      toggleNumberError(false)
-      toggleInputDisplayWindow(true)
-      toggleDisplayWindow(false)
-      document.myForm.myInput.value = '';
+      if(valueChanged){
+        console.log('sending dataset : ' , dataset)
+        onSubmit(dataset , data)
+        toggleNumberError(false)
+        toggleInputDisplayWindow(true)
+        toggleDisplayWindow(false)
+        document.myForm.myInput.value = '';
+      }else{
+        toggleNumberError(true)
+        document.myForm.myInput.value = ''
+        toggleDisplayWindow(false)
+        toggleInputDisplayWindow(false)
+      }
+      toggleValueChanged(false)
     }
   }
 
@@ -71,7 +81,7 @@ function Input({onSubmit, onReload}) {
               data-testid = "searchBar"
               className='input-number text-center text-3xl self-center h-16 rounded-l-xl text-orange-400 placeholder:text-orange-400'
               placeholder='Enter a number'
-              type="text"
+              type="number"
                 animate = {{
                   scale : 1.1,
                   opacity : 1
