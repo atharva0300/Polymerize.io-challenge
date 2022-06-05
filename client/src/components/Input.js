@@ -109,10 +109,10 @@ function Input({onSubmit, onReload}) {
         <motion.button 
             className='self-center w-96 h-16 bg-yellow-600 mx-24 mt-8 rounded-full text-2xl text-white'
             animate = {{
-              y : "0px",
+              y : 0
             }}
             initial ={{
-              y : "100px"
+              y : 100
             }}
             transition = {{
               type : "spring"
@@ -127,10 +127,10 @@ function Input({onSubmit, onReload}) {
         <motion.button 
             className='self-center w-96 h-16 bg-yellow-600 mx-24 mt-8 rounded-full text-2xl text-white'
             animate = {{
-              y : "0px"
+              y : 0
             }}
             initial ={{
-              y : "100px"
+              y : 100
             }}
             transition = {{
               type : "spring"
