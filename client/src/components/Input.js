@@ -79,7 +79,7 @@ function Input({onSubmit, onReload}) {
               name='myInput'
               onFocus={(e) => disableAllToggles(e)}
               data-testid = "searchBar"
-              className='input-number text-center text-3xl self-center h-16 rounded-l-xl text-orange-400 placeholder:text-orange-400'
+              className='input-number text-center text-3xl self-center rounded-l-xl text-orange-400 placeholder:text-orange-400'
               placeholder='Enter a number'
               type="number"
                 animate = {{
@@ -107,7 +107,7 @@ function Input({onSubmit, onReload}) {
               opacity : 0.1
             }}
             transition = {{
-              type : "tween",
+              type : "spring",
               stiffness : 60
             }}
             data-testid = "submitValue"
